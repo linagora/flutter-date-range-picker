@@ -1,4 +1,4 @@
-name: flutter_date_picker
+name: flutter_date_range_picker
 description: A Flutter package for all platform which provides a custom date picker
 publish_to: 'none'
 version: 1.0.0
@@ -18,7 +18,7 @@ dependencies:
 
   pattern_formatter: 2.0.0
 
-  flutter_svg: 1.1.5
+  flutter_svg: 1.1.0
 
   debounce_throttle: 2.0.0
 

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_date_picker/utils/colors_utils.dart';
+import 'package:flutter_date_range_picker/utils/colors_utils.dart';
 
 class WrapTextButton extends StatelessWidget {
   final String title;

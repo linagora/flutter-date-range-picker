@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_date_picker/flutter_date_picker.dart';
-import 'package:flutter_date_picker/widgets/wrap_text_button.dart';
+import 'package:flutter_date_range_picker/flutter_date_range_picker.dart';
+import 'package:flutter_date_range_picker/widgets/wrap_text_button.dart';
 
 void main() {
   return runApp(const MyApp());

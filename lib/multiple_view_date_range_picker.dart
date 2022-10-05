@@ -1,10 +1,10 @@
 import 'package:debounce_throttle/debounce_throttle.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_date_picker/model/date_range_type.dart';
-import 'package:flutter_date_picker/utils/colors_utils.dart';
-import 'package:flutter_date_picker/utils/image_paths.dart';
-import 'package:flutter_date_picker/widgets/text_field_builder.dart';
-import 'package:flutter_date_picker/widgets/wrap_text_button.dart';
+import 'package:flutter_date_range_picker/model/date_range_type.dart';
+import 'package:flutter_date_range_picker/utils/colors_utils.dart';
+import 'package:flutter_date_range_picker/utils/image_paths.dart';
+import 'package:flutter_date_range_picker/widgets/text_field_builder.dart';
+import 'package:flutter_date_range_picker/widgets/wrap_text_button.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:intl/intl.dart';
 import 'package:pattern_formatter/date_formatter.dart';
@@ -127,55 +127,58 @@ class _MultipleViewDateRangePickerState
         ),
         const Divider(color: ColorsUtils.colorDivider, height: 1),
         Expanded(
-          child: Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: SfDateRangePicker(
-              controller: _datePickerController,
-              onSelectionChanged: _onSelectionChanged,
-              view: DateRangePickerView.month,
-              selectionMode: DateRangePickerSelectionMode.range,
-              initialDisplayDate: _startDate,
-              initialSelectedRange: PickerDateRange(_startDate, _endDate),
-              enableMultiView: true,
-              enablePastDates: true,
-              viewSpacing: 16,
-              headerHeight: 52,
-              backgroundColor: Colors.white,
-              selectionShape: DateRangePickerSelectionShape.rectangle,
-              showNavigationArrow: true,
-              selectionColor: ColorsUtils.colorButton,
-              startRangeSelectionColor: ColorsUtils.colorButton,
-              endRangeSelectionColor: ColorsUtils.colorButton,
-              selectionRadius: 6,
-              monthViewSettings: DateRangePickerMonthViewSettings(
-                  dayFormat: _isVerticalArrangement(context) ? 'EE' : 'EEE',
-                  firstDayOfWeek: 1,
-                  viewHeaderHeight: 48,
-                  viewHeaderStyle: const DateRangePickerViewHeaderStyle(
-                      backgroundColor: Colors.white,
-                      textStyle: TextStyle(
-                          color: Colors.black,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 12))),
-              monthCellStyle: DateRangePickerMonthCellStyle(
-                cellDecoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(6)),
-                todayTextStyle: const TextStyle(
-                    color: ColorsUtils.colorButton,
-                    fontWeight: FontWeight.bold),
-                disabledDatesTextStyle: const TextStyle(
-                    color: ColorsUtils.colorButton,
-                    fontWeight: FontWeight.bold),
+          child: Stack(children: [
+            Positioned.fill(child: Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: SfDateRangePicker(
+                controller: _datePickerController,
+                onSelectionChanged: _onSelectionChanged,
+                view: DateRangePickerView.month,
+                selectionMode: DateRangePickerSelectionMode.range,
+                initialDisplayDate: _startDate,
+                initialSelectedRange: PickerDateRange(_startDate, _endDate),
+                enableMultiView: true,
+                enablePastDates: true,
+                viewSpacing: 16,
+                headerHeight: 52,
+                backgroundColor: Colors.white,
+                selectionShape: DateRangePickerSelectionShape.rectangle,
+                showNavigationArrow: true,
+                selectionColor: ColorsUtils.colorButton,
+                startRangeSelectionColor: ColorsUtils.colorButton,
+                endRangeSelectionColor: ColorsUtils.colorButton,
+                selectionRadius: 6,
+                monthViewSettings: DateRangePickerMonthViewSettings(
+                    dayFormat: _isVerticalArrangement(context) ? 'EE' : 'EEE',
+                    firstDayOfWeek: 1,
+                    viewHeaderHeight: 48,
+                    viewHeaderStyle: const DateRangePickerViewHeaderStyle(
+                        backgroundColor: Colors.white,
+                        textStyle: TextStyle(
+                            color: Colors.black,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 12))),
+                monthCellStyle: DateRangePickerMonthCellStyle(
+                  cellDecoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(6)),
+                  todayTextStyle: const TextStyle(
+                      color: ColorsUtils.colorButton,
+                      fontWeight: FontWeight.bold),
+                  disabledDatesTextStyle: const TextStyle(
+                      color: ColorsUtils.colorButton,
+                      fontWeight: FontWeight.bold),
+                ),
+                headerStyle: const DateRangePickerHeaderStyle(
+                    textAlign: TextAlign.center,
+                    textStyle: TextStyle(
+                        color: Colors.black,
+                        fontSize: 15,
+                        fontWeight: FontWeight.bold)),
               ),
-              headerStyle: const DateRangePickerHeaderStyle(
-                  textAlign: TextAlign.center,
-                  textStyle: TextStyle(
-                      color: Colors.black,
-                      fontSize: 15,
-                      fontWeight: FontWeight.bold)),
-            ),
-          ),
+            )),
+            const Center(child: VerticalDivider(color: ColorsUtils.colorDivider, width: 1)),
+          ]),
         ),
         const Divider(color: ColorsUtils.colorDivider, height: 1),
         Padding(

@@ -1,4 +1,4 @@
-# Flutter Date Picker
+# Flutter Date Range Picker
 
 A Flutter package for all platform which provides a custom date picker
 
@@ -12,43 +12,45 @@ A Flutter package for all platform which provides a custom date picker
 
 Add the package to pubspec.yaml
 
-```dart
+```yaml
 dependencies:
-  flutter_date_picker:
+  flutter_date_range_picker:
     git:
-        url: https://github.com/linagora/flutter_date_picker.git
+        url: https://github.com/linagora/flutter-date-range-picker.git
         ref: master
 ```
 
 Import it
 
 ```dart
-import 'package:flutter_date_picker/flutter_date_picker.dart';
+import 'package:flutter_date_range_picker/flutter_date_range_picker.dart';
 ```
 
 Use the widget
 
 ```dart
-showGeneralDialog(
-    context: context,
-    barrierDismissible: true,
-    barrierLabel: '',
-    barrierColor: Colors.black54,
-    pageBuilder: (context, animation, secondaryAnimation) {
-      return Dialog(
-          elevation: 0,
-          backgroundColor: Colors.white,
-          shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(18.0)),
-          child: MultipleViewDateRangePicker(
-            setDateActionCallback: ({startDate, endDate}) {
-              setState(() {
-                startDateSelected = startDate;
-                endDateSelected = endDate;
-              });
-              Navigator.of(context).pop();
-            },
-          ));
-    }
-);
+void showDatePicker() {
+  showGeneralDialog(
+      context: context,
+      barrierDismissible: true,
+      barrierLabel: '',
+      barrierColor: Colors.black54,
+      pageBuilder: (context, animation, secondaryAnimation) {
+        return Dialog(
+            elevation: 0,
+            backgroundColor: Colors.white,
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(18.0)),
+            child: MultipleViewDateRangePicker(
+              setDateActionCallback: ({startDate, endDate}) {
+                setState(() {
+                  startDateSelected = startDate;
+                  endDateSelected = endDate;
+                });
+                Navigator.of(context).pop();
+              },
+            ));
+      }
+  );
+}
 ```

@@ -1,6 +1,6 @@
 class ImagePaths {
   static const _assetsPathsImages = 'assets/images/';
-  static String packageName = 'flutter_date_picker';
+  static String packageName = 'flutter_date_range_picker';
 
   static String get icDateRange => _getImagePath('ic_date_range.svg');
 
