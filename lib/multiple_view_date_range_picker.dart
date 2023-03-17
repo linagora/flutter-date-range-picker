@@ -511,18 +511,43 @@ class _MultipleViewDateRangePickerState extends State<MultipleViewDateRangePicke
   }
 
   void _onStartDateTextChanged(String value) {
-    if (value.isNotEmpty && !value.contains('-')) {
-      final startDate = DateFormat(dateTimePattern).parse(value);
-      _startDate = startDate;
+    log('_MultipleViewDateRangePickerState::_onStartDateTextChanged():value: $value');
+    try {
+      if (value.isNotEmpty && _isDateValid(value, dateTimePattern)) {
+        final startDate = DateFormat(dateTimePattern).parse(value);
+        _startDate = startDate;
+        _updateDatePickerSelection();
+      }
+    } catch (e) {
+      log('_MultipleViewDateRangePickerState::_onStartDateTextChanged():Error: $e');
+      _startDate = null;
       _updateDatePickerSelection();
     }
   }
 
   void _onEndDateTextChanged(String value) {
-    if (value.isNotEmpty && !value.contains('-')) {
-      final endDate = DateFormat(dateTimePattern).parse(value);
-      _endDate = endDate;
+    log('_MultipleViewDateRangePickerState::_onEndDateTextChanged():value: $value');
+    try {
+      if (value.isNotEmpty && _isDateValid(value, dateTimePattern)) {
+        final endDate = DateFormat(dateTimePattern).parse(value);
+        _endDate = endDate;
+        _updateDatePickerSelection();
+      }
+    } catch (e) {
+      log('_MultipleViewDateRangePickerState::_onEndDateTextChanged():Error: $e');
+      _endDate = null;
       _updateDatePickerSelection();
+    }
+  }
+
+  bool _isDateValid(String input, String format) {
+    try {
+      final DateTime dateTime = DateFormat(format).parseStrict(input);
+      log('_MultipleViewDateRangePickerState::_isDateValid(): $dateTime');
+      return true;
+    } catch (e) {
+      log('_MultipleViewDateRangePickerState::_isDateValid():Error: $e');
+      return false;
     }
   }
 
