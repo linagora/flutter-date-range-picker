@@ -35,6 +35,7 @@ class MultipleViewDateRangePicker extends StatefulWidget {
   final DateTime? endDate;
   final List<Widget>? customDateRangeButtons;
   final double? radius;
+  final bool autoClose;
 
   const MultipleViewDateRangePicker({
     Key? key,
@@ -53,7 +54,8 @@ class MultipleViewDateRangePicker extends StatefulWidget {
     this.startDateInputController,
     this.endDateInputController,
     this.customDateRangeButtons,
-    this.radius
+    this.radius,
+    this.autoClose = true
   }) : super(key: key);
 
   @override
@@ -395,7 +397,9 @@ class _MultipleViewDateRangePickerState extends State<MultipleViewDateRangePicke
             widget.confirmText,
             onTap: () {
               widget.selectDateRangeActionCallback?.call(_startDate, _endDate);
-              Navigator.maybeOf(context)?.maybePop();
+              if (widget.autoClose) {
+                Navigator.maybeOf(context)?.maybePop();
+              }
             },
           ),
         ),
@@ -457,7 +461,9 @@ class _MultipleViewDateRangePickerState extends State<MultipleViewDateRangePicke
             padding: const EdgeInsets.symmetric(horizontal: 20),
             onTap: () {
               widget.selectDateRangeActionCallback?.call(_startDate, _endDate);
-              Navigator.maybeOf(context)?.maybePop();
+              if (widget.autoClose) {
+                Navigator.maybeOf(context)?.maybePop();
+              }
             },
           )
         ]),

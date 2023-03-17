@@ -21,6 +21,7 @@ class MaterialDateRangePickerDialog {
       String? last30daysTitle,
       String? last6monthsTitle,
       String? lastYearTitle,
+      bool autoClose = true,
       SelectDateRangeActionCallback? selectDateRangeActionCallback
     }
   ) {
@@ -56,6 +57,7 @@ class MaterialDateRangePickerDialog {
             startDate: initStartDate,
             endDate: initEndDate,
             radius: radius,
+            autoClose: autoClose,
             selectDateRangeActionCallback: selectDateRangeActionCallback
           ),
         ));
@@ -69,6 +71,7 @@ class MaterialDateRangePickerDialog {
       String? title,
       DateTime? currentDate,
       double? radius,
+      bool autoClose = true,
       SelectDateActionCallback? selectDateActionCallback
     }
   ) {
@@ -95,6 +98,7 @@ class MaterialDateRangePickerDialog {
           child: SingleViewDatePicker(
             title: title,
             radius: radius,
+            autoClose: autoClose,
             currentDate: currentDate,
             selectDateActionCallback: selectDateActionCallback
           ),
