@@ -15,6 +15,7 @@ class SingleViewDatePicker extends StatelessWidget {
   final DateRangePickerController? datePickerController;
   final DateTime? currentDate;
   final double? radius;
+  final bool autoClose;
 
   const SingleViewDatePicker({
     Key? key,
@@ -22,7 +23,8 @@ class SingleViewDatePicker extends StatelessWidget {
     this.currentDate,
     this.selectDateActionCallback,
     this.datePickerController,
-    this.radius
+    this.radius,
+    this.autoClose = true
   }) : super(key: key);
 
   @override
@@ -165,6 +167,8 @@ class SingleViewDatePicker extends StatelessWidget {
       final startDate = pickerDateRange.startDate;
       selectDateActionCallback?.call(startDate);
     }
-    Navigator.maybeOf(context)?.maybePop();
+    if (autoClose) {
+      Navigator.maybeOf(context)?.maybePop();
+    }
   }
 }
