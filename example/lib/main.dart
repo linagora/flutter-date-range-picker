@@ -52,29 +52,18 @@ class _SampleDatePickerState extends State<SampleDatePicker> {
                   textStyle: const TextStyle(
                       fontWeight: FontWeight.w500,
                       color: Colors.white,
-                      fontSize: 16), onTap: () {
-                showGeneralDialog(
-                    context: context,
-                    barrierDismissible: true,
-                    barrierLabel: '',
-                    barrierColor: Colors.black54,
-                    pageBuilder: (context, animation, secondaryAnimation) {
-                      return Dialog(
-                          elevation: 0,
-                          backgroundColor: Colors.white,
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(18.0)),
-                          child: MultipleViewDateRangePicker(
-                            setDateActionCallback: ({startDate, endDate}) {
-                              setState(() {
-                                startDateSelected = startDate;
-                                endDateSelected = endDate;
-                              });
-                              Navigator.of(context).pop();
-                            },
-                          ));
-                    });
-              }),
+                      fontSize: 16),
+                  onTap: () {
+                    MaterialDateRangePickerDialog.showDateRangePicker(
+                      context,
+                      selectDateRangeActionCallback: (startDate, endDate) {
+                        setState(() {
+                          startDateSelected = startDate;
+                          endDateSelected = endDate;
+                        });
+                      }
+                    );
+                  }),
               const SizedBox(height: 16),
               Text(
                 'Start date: ${startDateSelected != null ? DateFormat('dd/MM/yyyy').format(startDateSelected!) : ''}',
