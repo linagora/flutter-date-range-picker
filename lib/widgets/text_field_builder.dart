@@ -14,6 +14,7 @@ class TextFieldBuilder extends StatelessWidget {
   final bool autoFocus;
   final FocusNode? focusNode;
   final double borderRadius;
+  final double? maxWidth;
   final String? hintText;
   final List<TextInputFormatter>? inputFormatters;
 
@@ -31,6 +32,7 @@ class TextFieldBuilder extends StatelessWidget {
     this.focusNode,
     this.borderRadius = 12.0,
     this.hintText,
+    this.maxWidth,
     this.inputFormatters
   }) : super(key: key);
 
@@ -79,7 +81,7 @@ class TextFieldBuilder extends StatelessWidget {
           fontSize: 16,
           fontWeight: FontWeight.normal),
         filled: true,
-        constraints: const BoxConstraints(maxWidth: 120),
+        constraints: BoxConstraints(maxWidth: maxWidth ?? 130),
         fillColor: ColorsUtils.colorDefault
       ),
       keyboardAppearance: Brightness.light,

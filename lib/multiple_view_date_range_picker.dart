@@ -35,6 +35,7 @@ class MultipleViewDateRangePicker extends StatefulWidget {
   final DateTime? endDate;
   final List<Widget>? customDateRangeButtons;
   final double? radius;
+  final double? tabletInputFieldMaxWidth;
   final bool autoClose;
 
   const MultipleViewDateRangePicker({
@@ -55,6 +56,7 @@ class MultipleViewDateRangePicker extends StatefulWidget {
     this.endDateInputController,
     this.customDateRangeButtons,
     this.radius,
+    this.tabletInputFieldMaxWidth,
     this.autoClose = true
   }) : super(key: key);
 
@@ -331,6 +333,7 @@ class _MultipleViewDateRangePickerState extends State<MultipleViewDateRangePicke
                 },
                 textInputAction: TextInputAction.next,
                 hintText: 'dd/mm/yyyy',
+                maxWidth: double.infinity,
                 keyboardType: TextInputType.number,
                 inputFormatters: [DateInputFormatter()],
               ),
@@ -494,6 +497,7 @@ class _MultipleViewDateRangePickerState extends State<MultipleViewDateRangePicke
         }
       },
       hintText: 'dd/mm/yyyy',
+      maxWidth: widget.tabletInputFieldMaxWidth,
       textInputAction: TextInputAction.next,
       keyboardType: TextInputType.number,
       inputFormatters: [DateInputFormatter()],
