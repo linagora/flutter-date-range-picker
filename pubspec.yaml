@@ -22,7 +22,7 @@ dependencies:
 
   debounce_throttle: 2.0.0
 
-  pointer_interceptor: ^0.9.3+7
+  pointer_interceptor: ^0.10.1
 
 dev_dependencies:
   flutter_test:
