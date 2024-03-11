@@ -66,6 +66,11 @@ class MultipleViewDateRangePicker extends StatefulWidget {
 
 class _MultipleViewDateRangePickerState extends State<MultipleViewDateRangePicker> {
   final String dateTimePattern = 'dd/MM/yyyy';
+  static const _desktopDateRangePickerWidth = 650.0;
+  static const _tabletDateRangePickerBottomPadding = 16.0;
+  final _startAndEndDateInputTabletKey = GlobalKey();
+  final _bottomViewTabletConfirmationButtonsKey = GlobalKey();
+  bool _bottomViewTabletConfirmationButtonsOverflow = false;
 
   late DateRangePickerController _datePickerController;
   late TextEditingController _startDateInputController;
@@ -88,6 +93,30 @@ class _MultipleViewDateRangePickerState extends State<MultipleViewDateRangePicke
     _initDebounceTimeForDate();
     _updateDateTextInput();
     super.initState();
+    _checkIfTabletBottomButtonIsOverflowed();
+  }
+
+  void _checkIfTabletBottomButtonIsOverflowed() {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      final startAndEndDateInputTabletRenderBox = _startAndEndDateInputTabletKey
+        .currentContext?.findRenderObject() as RenderBox?;
+      final bottomViewTabletConfirmationButtonsRenderBox = _bottomViewTabletConfirmationButtonsKey
+        .currentContext?.findRenderObject() as RenderBox?;
+      
+      if (startAndEndDateInputTabletRenderBox == null
+        || bottomViewTabletConfirmationButtonsRenderBox == null) return;
+    
+      final startAndEndDateInputTabletWidth = startAndEndDateInputTabletRenderBox
+        .size.width;
+      final bottomViewTabletConfirmationButtonsWidth = bottomViewTabletConfirmationButtonsRenderBox
+        .size.width;
+      if (bottomViewTabletConfirmationButtonsWidth + startAndEndDateInputTabletWidth 
+        > _desktopDateRangePickerWidth - _tabletDateRangePickerBottomPadding * 2) {
+          setState(() {
+            _bottomViewTabletConfirmationButtonsOverflow = true;
+          });
+      }
+    });
   }
 
   void _initDebounceTimeForDate() {
@@ -112,7 +141,7 @@ class _MultipleViewDateRangePickerState extends State<MultipleViewDateRangePicke
     return Center(
       child: Container(
         height: 500 ,
-        width: ResponsiveUtils.isDesktop(context) ? 650 : 500,
+        width: ResponsiveUtils.isDesktop(context) ? _desktopDateRangePickerWidth : 500,
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.all(Radius.circular(widget.radius ?? 16)),
@@ -433,43 +462,25 @@ class _MultipleViewDateRangePickerState extends State<MultipleViewDateRangePicke
           ],
         ),
       );
+    } else if (!_bottomViewTabletConfirmationButtonsOverflow) {
+      return Padding(
+        padding: EdgeInsets.all(_tabletDateRangePickerBottomPadding),
+        child: Row(children: [
+          _startAndEndDateInputFormTablet(context),
+          const Spacer(),
+          _bottomViewTabletConfirmationButtons(context),
+        ]),
+      );
     } else {
       return Padding(
-        padding: const EdgeInsets.all(16),
-        child: Row(children: [
-          _buildDateInputFormTablet(context, DateType.start),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 12),
-            child: SvgPicture.asset(
-              ImagePaths.icDateRange,
-              package: ImagePaths.packageName
-            )
-          ),
-          _buildDateInputFormTablet(context, DateType.end),
-          const Spacer(),
-          WrapTextButton(
-            widget.cancelText,
-            textStyle: const TextStyle(
-              color: ColorsUtils.colorButton,
-              fontWeight: FontWeight.w500,
-              fontSize: 16
-            ),
-            padding: const EdgeInsets.symmetric(horizontal: 25),
-            backgroundColor: ColorsUtils.colorButtonDisable,
-            onTap: Navigator.maybeOf(context)?.maybePop,
-          ),
-          const SizedBox(width: 12),
-          WrapTextButton(
-            widget.confirmText,
-            padding: const EdgeInsets.symmetric(horizontal: 20),
-            onTap: () {
-              widget.selectDateRangeActionCallback?.call(_startDate, _endDate);
-              if (widget.autoClose) {
-                Navigator.maybeOf(context)?.maybePop();
-              }
-            },
-          )
-        ]),
+        padding: EdgeInsets.all(_tabletDateRangePickerBottomPadding),
+        child: Column(
+          children: [
+            _startAndEndDateInputFormTablet(context),
+            const SizedBox(height: 12),
+            _bottomViewTabletConfirmationButtons(context),
+          ],
+        ),
       );
     }
   }
@@ -501,6 +512,60 @@ class _MultipleViewDateRangePickerState extends State<MultipleViewDateRangePicke
       textInputAction: TextInputAction.next,
       keyboardType: TextInputType.number,
       inputFormatters: [DateInputFormatter()],
+    );
+  }
+
+  Widget _startAndEndDateInputFormTablet(BuildContext context) {
+    return Row(
+      key: _startAndEndDateInputTabletKey,
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        _buildDateInputFormTablet(context, DateType.start),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 12),
+          child: SvgPicture.asset(
+            ImagePaths.icDateRange,
+            package: ImagePaths.packageName,
+          ),
+        ),
+        _buildDateInputFormTablet(context, DateType.end),
+        if (!_bottomViewTabletConfirmationButtonsOverflow)
+          const SizedBox(width: 12),
+      ],
+    );
+  }
+
+  Widget _bottomViewTabletConfirmationButtons(BuildContext context) {
+    return Row(
+      key: _bottomViewTabletConfirmationButtonsKey,
+      mainAxisAlignment: MainAxisAlignment.end,
+      children: [
+        WrapTextButton(
+          widget.cancelText,
+          textStyle: const TextStyle(
+            color: ColorsUtils.colorButton,
+            fontWeight: FontWeight.w500,
+            fontSize: 16,
+          ),
+          padding: const EdgeInsets.symmetric(horizontal: 25),
+          backgroundColor: ColorsUtils.colorButtonDisable,
+          onTap: Navigator.maybeOf(context)?.maybePop,
+        ),
+        const SizedBox(width: 12),
+        Flexible(
+          flex: _bottomViewTabletConfirmationButtonsOverflow ? 1 : 0,
+          child: WrapTextButton(
+            widget.confirmText,
+            padding: const EdgeInsets.symmetric(horizontal: 20),
+            onTap: () {
+              widget.selectDateRangeActionCallback?.call(_startDate, _endDate);
+              if (widget.autoClose) {
+                Navigator.maybeOf(context)?.maybePop();
+              }
+            },
+          ),
+        ),
+      ],
     );
   }
 
