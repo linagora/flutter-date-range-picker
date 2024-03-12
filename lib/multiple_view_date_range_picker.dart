@@ -414,6 +414,7 @@ class _MultipleViewDateRangePickerState extends State<MultipleViewDateRangePicke
         Expanded(
           child: WrapTextButton(
             widget.cancelText,
+            padding: const EdgeInsets.symmetric(horizontal: 8),
             textStyle: const TextStyle(
               color: ColorsUtils.colorButton,
               fontWeight: FontWeight.w500,
@@ -427,6 +428,7 @@ class _MultipleViewDateRangePickerState extends State<MultipleViewDateRangePicke
         Expanded(
           child: WrapTextButton(
             widget.confirmText,
+            padding: const EdgeInsets.symmetric(horizontal: 8),
             onTap: () {
               widget.selectDateRangeActionCallback?.call(_startDate, _endDate);
               if (widget.autoClose) {
