@@ -25,43 +25,45 @@ class MaterialDateRangePickerDialog {
       SelectDateRangeActionCallback? selectDateRangeActionCallback
     }
   ) {
-    showModalBottomSheet(
+    showGeneralDialog(
       context: context,
-      isScrollControlled: true,
       barrierColor: Colors.black26,
-      backgroundColor: Colors.transparent,
-      enableDrag: false,
-      constraints: ResponsiveUtils.isLandscapeMobile(context)
-        ? const BoxConstraints(maxWidth: 450)
-        : null,
-      shape: RoundedRectangleBorder(
-        borderRadius: ResponsiveUtils.isMobile(context)
-          ? BorderRadius.only(
-              topLeft: Radius.circular(radius ?? 16.0),
-              topRight: Radius.circular(radius ?? 16.0)
-            )
-          : BorderRadius.all(Radius.circular(radius ?? 16.0))
-      ),
-      builder: (context) {
-        return PointerInterceptor(child: Padding(
-          padding: MediaQuery.of(context).viewInsets,
-          child: MultipleViewDateRangePicker(
-            confirmText: confirmText,
-            cancelText: cancelText,
-            startDateTitle: startDateTitle,
-            endDateTitle: endDateTitle,
-            last7daysTitle: last7daysTitle,
-            last30daysTitle: last30daysTitle,
-            last6monthsTitle: last6monthsTitle,
-            lastYearTitle: lastYearTitle,
-            startDate: initStartDate,
-            endDate: initEndDate,
-            radius: radius,
-            autoClose: autoClose,
-            selectDateRangeActionCallback: selectDateRangeActionCallback
+      useRootNavigator: false,
+      pageBuilder: (context, _, __) {
+        return Container(
+          alignment: ResponsiveUtils.isMobile(context)
+            ? Alignment.bottomCenter
+            : Alignment.center,
+          constraints: ResponsiveUtils.isLandscapeMobile(context)
+            ? const BoxConstraints(maxWidth: 450)
+            : const BoxConstraints(),
+          child: Material(
+            borderRadius: ResponsiveUtils.isMobile(context)
+              ? BorderRadius.only(
+                  topLeft: Radius.circular(radius ?? 16.0),
+                  topRight: Radius.circular(radius ?? 16.0))
+              : BorderRadius.all(Radius.circular(radius ?? 16.0)),
+            child: PointerInterceptor(child: Padding(
+              padding: MediaQuery.of(context).viewInsets,
+              child: MultipleViewDateRangePicker(
+                confirmText: confirmText,
+                cancelText: cancelText,
+                startDateTitle: startDateTitle,
+                endDateTitle: endDateTitle,
+                last7daysTitle: last7daysTitle,
+                last30daysTitle: last30daysTitle,
+                last6monthsTitle: last6monthsTitle,
+                lastYearTitle: lastYearTitle,
+                startDate: initStartDate,
+                endDate: initEndDate,
+                radius: radius,
+                autoClose: autoClose,
+                selectDateRangeActionCallback: selectDateRangeActionCallback
+              ),
+            )),
           ),
-        ));
-      }
+        );
+      },
     );
   }
 
