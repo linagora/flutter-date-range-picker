@@ -79,7 +79,23 @@ class _SampleDatePickerState extends State<SampleDatePicker> {
                     fontWeight: FontWeight.w500,
                     color: Colors.black,
                     fontSize: 16),
-              )
+              ),
+              const SizedBox(height: 16),
+              WrapTextButton('Show date picker single view',
+                  height: 50,
+                  backgroundColor: Colors.blue,
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+                  textStyle: const TextStyle(
+                      fontWeight: FontWeight.w500,
+                      color: Colors.white,
+                      fontSize: 16),
+                  onTap: () {
+                    MaterialDateRangePickerDialog.showDatePicker(
+                      context,
+                      selectDateActionCallback: (date) {}
+                    );
+                  }),
             ]),
       ),
     );
