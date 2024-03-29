@@ -43,6 +43,7 @@ class MaterialDateRangePickerDialog {
                   topLeft: Radius.circular(radius ?? 16.0),
                   topRight: Radius.circular(radius ?? 16.0))
               : BorderRadius.all(Radius.circular(radius ?? 16.0)),
+            type: MaterialType.transparency,
             child: PointerInterceptor(child: Padding(
               padding: MediaQuery.of(context).viewInsets,
               child: MultipleViewDateRangePicker(
