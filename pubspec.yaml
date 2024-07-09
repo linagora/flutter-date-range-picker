@@ -12,11 +12,11 @@ dependencies:
 
   cupertino_icons: ^1.0.6
 
-  intl: ^0.18.1
+  intl: ^0.19.0
 
-  syncfusion_flutter_datepicker: ^23.1.44
+  syncfusion_flutter_datepicker: ^26.1.40
 
-  pattern_formatter: 3.0.0
+  pattern_formatter: 4.0.0
 
   flutter_svg: ^2.0.9
 
