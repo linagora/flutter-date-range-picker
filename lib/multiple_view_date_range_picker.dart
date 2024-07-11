@@ -213,6 +213,7 @@ class _MultipleViewDateRangePickerState extends State<MultipleViewDateRangePicke
                     ),
                   ),
                   headerStyle: const DateRangePickerHeaderStyle(
+                    backgroundColor: Colors.white,
                     textAlign: TextAlign.center,
                     textStyle: TextStyle(
                       color: Colors.black,
