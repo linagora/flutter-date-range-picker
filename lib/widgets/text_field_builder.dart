@@ -19,7 +19,7 @@ class TextFieldBuilder extends StatelessWidget {
   final List<TextInputFormatter>? inputFormatters;
 
   const TextFieldBuilder({
-    Key? key,
+    super.key,
     this.onTextChange,
     this.onTextSubmitted,
     this.textStyle,
@@ -34,7 +34,7 @@ class TextFieldBuilder extends StatelessWidget {
     this.hintText,
     this.maxWidth,
     this.inputFormatters
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

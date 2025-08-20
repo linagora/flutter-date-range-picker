@@ -42,7 +42,7 @@ class MultipleViewDateRangePicker extends StatefulWidget {
   final String? barrierLabel;
 
   const MultipleViewDateRangePicker({
-    Key? key,
+    super.key,
     this.confirmText = 'Set date',
     this.cancelText = 'Cancel',
     this.startDateTitle = 'Start date',
@@ -64,7 +64,7 @@ class MultipleViewDateRangePicker extends StatefulWidget {
     this.usePointerInterceptor = true,
     this.barrierLabel,
     this.autoClose = true
-  }) : super(key: key);
+  });
 
   @override
   State<MultipleViewDateRangePicker> createState() => _MultipleViewDateRangePickerState();
@@ -110,7 +110,9 @@ class _MultipleViewDateRangePickerState extends State<MultipleViewDateRangePicke
         .currentContext?.findRenderObject() as RenderBox?;
       
       if (startAndEndDateInputTabletRenderBox == null
-        || bottomViewTabletConfirmationButtonsRenderBox == null) return;
+        || bottomViewTabletConfirmationButtonsRenderBox == null) {
+        return;
+      }
     
       final startAndEndDateInputTabletWidth = startAndEndDateInputTabletRenderBox
         .size.width;
@@ -476,7 +478,7 @@ class _MultipleViewDateRangePickerState extends State<MultipleViewDateRangePicke
       );
     } else if (!_bottomViewTabletConfirmationButtonsOverflow) {
       return Padding(
-        padding: EdgeInsets.all(_tabletDateRangePickerBottomPadding),
+        padding: const EdgeInsets.all(_tabletDateRangePickerBottomPadding),
         child: Row(children: [
           _startAndEndDateInputFormTablet(context),
           const Spacer(),
@@ -485,7 +487,7 @@ class _MultipleViewDateRangePickerState extends State<MultipleViewDateRangePicke
       );
     } else {
       return Padding(
-        padding: EdgeInsets.all(_tabletDateRangePickerBottomPadding),
+        padding: const EdgeInsets.all(_tabletDateRangePickerBottomPadding),
         child: Column(
           children: [
             _startAndEndDateInputFormTablet(context),
