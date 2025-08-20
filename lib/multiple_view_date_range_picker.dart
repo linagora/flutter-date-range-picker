@@ -37,6 +37,9 @@ class MultipleViewDateRangePicker extends StatefulWidget {
   final double? radius;
   final double? tabletInputFieldMaxWidth;
   final bool autoClose;
+  final bool barrierDismissible;
+  final bool usePointerInterceptor;
+  final String? barrierLabel;
 
   const MultipleViewDateRangePicker({
     Key? key,
@@ -57,6 +60,9 @@ class MultipleViewDateRangePicker extends StatefulWidget {
     this.customDateRangeButtons,
     this.radius,
     this.tabletInputFieldMaxWidth,
+    this.barrierDismissible = false,
+    this.usePointerInterceptor = true,
+    this.barrierLabel,
     this.autoClose = true
   }) : super(key: key);
 
@@ -377,6 +383,9 @@ class _MultipleViewDateRangePickerState extends State<MultipleViewDateRangePicke
                     MaterialDateRangePickerDialog.showDatePicker(
                       context,
                       title: dateType.getTitle(widget.startDateTitle, widget.endDateTitle),
+                      barrierDismissible: widget.barrierDismissible,
+                      usePointerInterceptor: widget.usePointerInterceptor,
+                      barrierLabel: widget.barrierLabel,
                       selectDateActionCallback: (dateSelected) {
                         if (mounted) {
                           setState(() {

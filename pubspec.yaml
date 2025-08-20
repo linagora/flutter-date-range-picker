@@ -1,7 +1,7 @@
 name: flutter_date_range_picker
 description: A Flutter package for all platform which provides a custom date picker
 publish_to: 'none'
-version: 2.0.0
+version: 2.0.1
 
 environment:
   sdk: ">=2.19.2 <3.0.0"
