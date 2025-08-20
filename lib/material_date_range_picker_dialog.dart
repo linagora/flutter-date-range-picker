@@ -22,6 +22,9 @@ class MaterialDateRangePickerDialog {
       String? last6monthsTitle,
       String? lastYearTitle,
       bool autoClose = true,
+      bool barrierDismissible = false,
+      bool usePointerInterceptor = true,
+      String? barrierLabel,
       SelectDateRangeActionCallback? selectDateRangeActionCallback
     }
   ) {
@@ -29,7 +32,35 @@ class MaterialDateRangePickerDialog {
       context: context,
       barrierColor: Colors.black26,
       useRootNavigator: false,
+      barrierDismissible: barrierDismissible,
+      barrierLabel: barrierLabel,
       pageBuilder: (context, _, __) {
+        Widget datePickerView = Padding(
+          padding: MediaQuery.of(context).viewInsets,
+          child: MultipleViewDateRangePicker(
+            confirmText: confirmText,
+            cancelText: cancelText,
+            startDateTitle: startDateTitle,
+            endDateTitle: endDateTitle,
+            last7daysTitle: last7daysTitle,
+            last30daysTitle: last30daysTitle,
+            last6monthsTitle: last6monthsTitle,
+            lastYearTitle: lastYearTitle,
+            startDate: initStartDate,
+            endDate: initEndDate,
+            radius: radius,
+            autoClose: autoClose,
+            barrierDismissible: barrierDismissible,
+            barrierLabel: barrierLabel,
+            usePointerInterceptor: usePointerInterceptor,
+            selectDateRangeActionCallback: selectDateRangeActionCallback
+          ),
+        );
+
+        if (usePointerInterceptor) {
+          datePickerView = PointerInterceptor(child: datePickerView);
+        }
+
         return Container(
           alignment: ResponsiveUtils.isMobile(context)
             ? Alignment.bottomCenter
@@ -44,24 +75,7 @@ class MaterialDateRangePickerDialog {
                   topRight: Radius.circular(radius ?? 16.0))
               : BorderRadius.all(Radius.circular(radius ?? 16.0)),
             type: MaterialType.transparency,
-            child: PointerInterceptor(child: Padding(
-              padding: MediaQuery.of(context).viewInsets,
-              child: MultipleViewDateRangePicker(
-                confirmText: confirmText,
-                cancelText: cancelText,
-                startDateTitle: startDateTitle,
-                endDateTitle: endDateTitle,
-                last7daysTitle: last7daysTitle,
-                last30daysTitle: last30daysTitle,
-                last6monthsTitle: last6monthsTitle,
-                lastYearTitle: lastYearTitle,
-                startDate: initStartDate,
-                endDate: initEndDate,
-                radius: radius,
-                autoClose: autoClose,
-                selectDateRangeActionCallback: selectDateRangeActionCallback
-              ),
-            )),
+            child: datePickerView,
           ),
         );
       },
@@ -75,6 +89,9 @@ class MaterialDateRangePickerDialog {
       DateTime? currentDate,
       double? radius,
       bool autoClose = true,
+      bool barrierDismissible = false,
+      bool usePointerInterceptor = true,
+      String? barrierLabel,
       SelectDateActionCallback? selectDateActionCallback
     }
   ) {
@@ -82,7 +99,24 @@ class MaterialDateRangePickerDialog {
       context: context,
       barrierColor: Colors.black26,
       useRootNavigator: false,
+      barrierDismissible: barrierDismissible,
+      barrierLabel: barrierLabel,
       pageBuilder: (context, animation, _) {
+        Widget datePickerView = Padding(
+          padding: MediaQuery.viewInsetsOf(context),
+          child: SingleViewDatePicker(
+            title: title,
+            radius: radius,
+            autoClose: autoClose,
+            currentDate: currentDate,
+            selectDateActionCallback: selectDateActionCallback
+          ),
+        );
+
+        if (usePointerInterceptor) {
+          datePickerView = PointerInterceptor(child: datePickerView);
+        }
+
         return AnimatedBuilder(
           animation: animation,
           child: Container(
@@ -99,16 +133,7 @@ class MaterialDateRangePickerDialog {
                     topRight: Radius.circular(radius ?? 16.0))
                 : BorderRadius.all(Radius.circular(radius ?? 16.0)),
               type: MaterialType.transparency,
-              child: PointerInterceptor(child: Padding(
-                padding: MediaQuery.viewInsetsOf(context),
-                child: SingleViewDatePicker(
-                  title: title,
-                  radius: radius,
-                  autoClose: autoClose,
-                  currentDate: currentDate,
-                  selectDateActionCallback: selectDateActionCallback
-                ),
-              )),
+              child: datePickerView,
             ),
           ),
           builder: (BuildContext context, Widget? child) {
