@@ -16,7 +16,7 @@ class WrapTextButton extends StatelessWidget {
   final VoidCallback? onTap;
 
   const WrapTextButton(this.title, {
-    Key? key,
+    super.key,
     this.textStyle,
     this.backgroundColor = ColorsUtils.colorPrimary,
     this.textColor = Colors.white,
@@ -28,7 +28,7 @@ class WrapTextButton extends StatelessWidget {
     this.padding,
     this.margin,
     this.onTap
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -42,15 +42,15 @@ class WrapTextButton extends StatelessWidget {
       child: TextButton(
         onPressed: onTap,
         style: ButtonStyle(
-          backgroundColor: MaterialStateProperty.resolveWith<Color>((Set<MaterialState> states) => backgroundColor),
-          shape: MaterialStateProperty.all(RoundedRectangleBorder(
+          backgroundColor: WidgetStateProperty.resolveWith<Color>((Set<WidgetState> states) => backgroundColor),
+          shape: WidgetStateProperty.all(RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(radius ?? 12),
             side: borderColor != null
               ? BorderSide(width: 1, color: borderColor!)
               : BorderSide.none
           )),
-          padding: MaterialStateProperty.resolveWith<EdgeInsets>((Set<MaterialState> states) => padding ?? const EdgeInsets.symmetric(vertical: 12)),
-          elevation: MaterialStateProperty.resolveWith<double>((Set<MaterialState> states) => 0)),
+          padding: WidgetStateProperty.resolveWith<EdgeInsets>((Set<WidgetState> states) => padding ?? const EdgeInsets.symmetric(vertical: 12)),
+          elevation: WidgetStateProperty.resolveWith<double>((Set<WidgetState> states) => 0)),
         child: Text(title,
           maxLines: 1,
           overflow: TextOverflow.ellipsis,

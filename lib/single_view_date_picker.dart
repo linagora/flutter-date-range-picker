@@ -18,14 +18,14 @@ class SingleViewDatePicker extends StatelessWidget {
   final bool autoClose;
 
   const SingleViewDatePicker({
-    Key? key,
+    super.key,
     this.title,
     this.currentDate,
     this.selectDateActionCallback,
     this.datePickerController,
     this.radius,
     this.autoClose = true
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
